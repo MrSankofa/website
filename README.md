@@ -1,6 +1,8 @@
 # One Sunday At A Time Website
 The main website for [One Sunday At A Time](https://www.onesundayatatime.com)
 
+Built with a 100% serverless architecture.
+
 ## Layout 🗺
 
 This repo has the following structure:
@@ -16,7 +18,7 @@ This repo has the following structure:
 |
 |- web/                   # Contains a React app and all necessary build tools
     |
-    |- dist/              # Folder for built JS files and assets; these are uploaded to s3 with Webpack
+    |- dist/              # Folder for built JS files and assets; these are uploaded to s3 as a static website using Webpack
     |
     |- src/
         |
