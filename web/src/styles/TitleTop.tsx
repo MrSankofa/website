@@ -19,5 +19,5 @@ export const mobile = {
   fontWeight: 400,
   fontSize: "5em",
   lineHeight: "10px",
-  paddingTop: "15vh"
+  paddingTop: "12vh"
 };

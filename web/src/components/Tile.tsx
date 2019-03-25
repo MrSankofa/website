@@ -40,6 +40,7 @@ class Tile extends React.Component<TileInterface, InitialState> {
           background: `url('${this.props.background_img}')`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
+          backgroundPosition: "center",
           textAlign: "center",
           overflow: "hidden"
         }}
