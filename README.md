@@ -1,4 +1,4 @@
-# One Sunday At A Time Website
+# onesundayatatime.com
 The main website for [One Sunday At A Time](https://www.onesundayatatime.com)
 
 Built with a 100% serverless architecture.
