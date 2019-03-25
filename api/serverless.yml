@@ -1,0 +1,37 @@
+service: onesundayatatime-api
+
+custom:
+  apiGatewayCaching:
+    enabled: true
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  region: us-east-1
+  memorySize: 256
+  timeout: 30
+
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - logs:CreateLogGroup
+        - logs:CreateLogStream
+        - logs:PutLogEvents
+      Resource: "*"
+  
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+  - serverless-api-gateway-caching
+
+functions:
+  layout:
+    handler: handler.layout
+    events:
+      - http:
+          path: /layout
+          method: get
+          integration: lambda-proxy
+          cors: true
+          caching:
+            enabled: true

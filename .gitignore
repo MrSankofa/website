@@ -1,3 +1,9 @@
+# Built files
+web/dist
+
+# Serverless
+.serverless
+
 # Logs
 logs
 *.log
