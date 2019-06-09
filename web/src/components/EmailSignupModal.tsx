@@ -25,6 +25,7 @@ const EmailSignupModal: FunctionComponent<ModalProps> = props => {
   const [buttonFocused, setButtonFocused] = useState(false);
   const [buttonColor, setButtonColor] = useState(Colors.blue);
   const [subscribed, setSubscribed] = useState(false);
+  const [inputValid, setInputValid] = useState(false);
 
   const keydown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -46,6 +47,19 @@ const EmailSignupModal: FunctionComponent<ModalProps> = props => {
         });
     }
   };
+
+  useEffect(() => {
+    if (
+      /[A-Z][a-zA-Z][^#&<>\"~;$^%{}?]{1,20}$/.test(nameInput.current.value) &&
+      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(
+        emailInput.current.value
+      )
+    ) {
+      setInputValid(true);
+    } else {
+      setInputValid(false);
+    }
+  }, [nameInputFocused, emailInputFocused]);
 
   useEffect(() => {
     if (nameInput.current) {
@@ -200,6 +214,7 @@ const EmailSignupModal: FunctionComponent<ModalProps> = props => {
       {!subscribed && (
         <button
           type="submit"
+          disabled={!inputValid}
           onClick={submit}
           ref={button}
           onFocus={() => setButtonFocused(true)}
