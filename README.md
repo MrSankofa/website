@@ -1,9 +1,13 @@
 # onesundayatatime.com
-The main website for [One Sunday At A Time](https://www.onesundayatatime.com)
+The main website and backend for [One Sunday At A Time](https://www.onesundayatatime.com)
 
 Built with a 100% serverless architecture.
 
 Uses [Airtable](https://airtable.com) as a database, with the benefit of Airtable's UX being a built-in CMS. 
+
+Uses [Square](https://squareup.com) for handling transactions via a webhook and updating Airtable based on purchase totals. Because automated accounting is dope.
+
+Uses [Mailchimp](https://mailchimp.com) for handling newsletter signups.
 
 Lambda proxy caching ensures you don't run afoul of Airtable's API rate limits. 
 
@@ -16,11 +20,13 @@ This repo has the following structure:
 ```
 /
 |
-|- api/                   # Contains a Serverless API which proxies data from an Airtable base
+|- api/                   # Contains the Serverless API
 |   |
-|   |- handler.js         # Entrypoint for API code, also main routing system for API requests.
+|   |- handler.js         # Entrypoint for API code, also main routing system for API requests
 |   |- layout.js          # Layout endpoints/function code
 |   |- serverless.yml     # Serverless configuration
+|   |- methods/           # Business logic/controllers
+|   |- services/          # Wrappers for third-party libraries
 |
 |- web/                   # Contains a React app and all necessary build tools
     |
@@ -43,8 +49,16 @@ Two .env files are required - one in /api and one in /web.
 
 api/.env
 ```
-AIRTABLE_KEY=xxxxxxxxxxxx
-AIRTABLE_BASE_ID=xxxxxxxxxxxxxx
+AIRTABLE_KEY=xxxxxxxxxxxxxxxxxx
+WEBSITE_BASE_ID=xxxxxxxxxxxxxxxxxx
+OS_BASE_ID=xxxxxxxxxxxxxxxxxx
+SQUARE_APP_ID=xxxxxxxxxxxxxxxxxx
+SQUARE_ACCESS_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+SQUARE_WEBHOOK_NOTIFICATION_URL=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+SQUARE_WEBHOOK_SIGNATURE_KEY=xxxxxxxxxxxxxxxxxx
+SQUARE_OAUTH_TOKEN=xxxxxxxxxxxxxxxxxx
+MAILCHIMP_APIKEY=xxxxxxxxxxxxxxxxxx
+MAILCHIMP_LIST_ID=xxxxxxxxx
 ```
 
 web/.env
@@ -73,8 +87,9 @@ To run the front-end:
 ```
 cd website/web && yarn 
 yarn dev
-open http://localhost:8080
 ```
+
+Navigate to http://localhost:8080 to see the site running on your machine.
 
 ## Build and Deploy 📦
 
