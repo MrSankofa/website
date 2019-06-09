@@ -3,6 +3,12 @@ The main website for [One Sunday At A Time](https://www.onesundayatatime.com)
 
 Built with a 100% serverless architecture.
 
+Uses [Airtable](https://airtable.com) as a database, with the benefit of Airtable's UX being a built-in CMS. 
+
+Lambda proxy caching ensures you don't run afoul of Airtable's API rate limits. 
+
+Front-end is hosted statically in S3, with a Cloudfront distribution serving up the goods from Edge locations.
+
 ## Layout 🗺
 
 This repo has the following structure:
