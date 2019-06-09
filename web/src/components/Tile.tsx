@@ -1,146 +1,170 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { useState, FunctionComponent, CSSProperties } from "react";
+//import { Link } from "react-router-dom";
 
-import TileInterface from "../types/Tile";
 import * as TileContainer from "../styles/Tile";
 import * as TitleTop from "../styles/TitleTop";
 import * as TitleBottom from "../styles/TitleBottom";
 import * as HoverContentBox from "../styles/HoverContentBox";
-import { string } from "prop-types";
+import Typography from "../styles/Typography";
+import { DeviceSizes, Colors } from "../constants";
 
-interface InitialState {
-  hoverContentVisibility: string;
-  aboutUsVisibility: string;
-}
+type TileProps = {
+  query: DeviceSizes;
+  name: string;
+  hover_content: any;
+  background_img: string;
+  href: string;
+  openModal?: () => void;
+};
 
-class Tile extends React.Component<TileInterface, InitialState> {
-  readonly state = {
-    hoverContentVisibility: "hidden",
-    aboutUsVisibility: "visible"
+const Tile: FunctionComponent<TileProps> = ({
+  query,
+  name,
+  hover_content,
+  background_img,
+  href,
+  openModal
+}) => {
+  const [hoverContentVisibility, setHoverContentVisibility] = useState(
+    "hidden"
+  );
+  const [aboutUsVisibility, setAboutUsVisibility] = useState("visible");
+  const isLink = !!href;
+  const isHomeTile = name === "One Sunday At A Time";
+  const isNewsletterTile = name === "Subway Platform";
+  const hasHoverContent = !!hover_content;
+
+  const mouseEnterHoverBox = () => {
+    setHoverContentVisibility("visible");
+    setAboutUsVisibility("hidden");
   };
-  mouseEnterHoverBox() {
-    this.setState({
-      hoverContentVisibility: "visible",
-      aboutUsVisibility: "hidden"
-    });
-  }
-  mouseLeaveHoverBox() {
-    this.setState({
-      hoverContentVisibility: "hidden",
-      aboutUsVisibility: "visible"
-    });
-  }
-  renderTile() {
-    let isHomeTile = this.props.name === "One Sunday At A Time";
-    let hasHoverContent = this.props.hover_content ? true : false;
-    return (
-      <div
+  const mouseLeaveHoverBox = () => {
+    setHoverContentVisibility("hidden");
+    setAboutUsVisibility("visible");
+  };
+
+  /*return isLink ? (
+      <Link
         style={{
-          ...TileContainer[this.props.query],
-          background: `url('${this.props.background_img}')`,
+          ...TileContainer[query],
+          textDecoration: "none"
+        }}
+        to={href}
+        onMouseEnter={mouseEnterHoverBox}
+        onMouseLeave={mouseLeaveHoverBox}
+      >
+        ...
+      </Link>
+    ) : ...;*/
+
+  return (
+    <div
+      style={
+        {
+          ...TileContainer[query],
+          background: `url('${background_img}')`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
           backgroundPosition: "center",
           textAlign: "center",
-          overflow: "hidden"
-        }}
-        onMouseEnter={this.mouseEnterHoverBox.bind(this)}
-        onMouseLeave={this.mouseLeaveHoverBox.bind(this)}
-      >
-        {isHomeTile ? (
-          <h1
-            style={{
-              ...TitleTop[this.props.query]
-            }}
-          >
-            one sunday
-          </h1>
-        ) : null}
-        {isHomeTile ? (
-          <h1
-            style={{
-              ...TitleBottom[this.props.query]
-            }}
-          >
-            at a time
-          </h1>
-        ) : null}
-        {isHomeTile ? (
+          overflow: "hidden",
+          cursor: isNewsletterTile ? "pointer" : "inherit"
+        } as CSSProperties
+      }
+      onClick={isNewsletterTile ? openModal : null}
+      onMouseEnter={mouseEnterHoverBox}
+      onMouseLeave={mouseLeaveHoverBox}
+    >
+      {isHomeTile && (
+        <h1
+          style={{
+            ...Typography[query].h1,
+            ...TitleTop[query]
+          }}
+        >
+          one sunday
+        </h1>
+      )}
+      {isHomeTile && (
+        <h1
+          style={{
+            ...Typography[query].h1,
+            ...TitleBottom[query]
+          }}
+        >
+          at a time
+        </h1>
+      )}
+      {isHomeTile && (
+        <p
+          style={{
+            ...Typography[query].label,
+            textAlign: "center",
+            color: Colors.black,
+            marginTop: "20%"
+          }}
+        >
+          brooklyn
+        </p>
+      )}
+      {isNewsletterTile && (
+        <h2
+          style={
+            {
+              ...Typography[query].h2,
+              width: "100%",
+              textAlign: "center",
+              color: Colors.offWhite,
+              marginTop: "23vh"
+            } as CSSProperties
+          }
+        >
+          Newsletter
+        </h2>
+      )}
+      {hasHoverContent && (
+        <div
+          style={
+            {
+              ...HoverContentBox[query],
+              visibility:
+                query === DeviceSizes.Desktop
+                  ? hoverContentVisibility
+                  : "visible"
+            } as CSSProperties
+          }
+        >
           <p
             style={{
-              fontFamily: "Fira Mono, sans-serif",
-              textAlign: "center",
-              color: "black",
-              marginTop: "20%",
-              fontSize: "1.25em"
+              ...Typography[query].label,
+              textAlign: "left",
+              color: Colors.black
             }}
           >
-            brooklyn
+            {hover_content}
           </p>
-        ) : null}
-        {hasHoverContent ? (
-          <div
-            style={{
-              ...HoverContentBox[this.props.query],
+        </div>
+      )}
+      {hasHoverContent && (
+        <h2
+          style={
+            {
+              ...Typography[query].h2,
+              width: "100%",
+              textAlign: "center",
+              color: Colors.offWhite,
+              marginTop: "-27vh",
               visibility:
-                this.props.query === "desktop"
-                  ? this.state.hoverContentVisibility
-                  : "visible"
-            }}
-          >
-            <p
-              style={{
-                fontFamily: "Fira Mono, sans-serif",
-                textAlign: "left",
-                color: "black"
-              }}
-            >
-              {this.props.hover_content}
-            </p>
-          </div>
-        ) : null}
-        {hasHoverContent ? (
-          <h2
-            style={
-              {
-                width: "100%",
-                fontFamily: "Rifton Norm, sans-serif",
-                textAlign: "center",
-                color: "white",
-                marginTop: "-25vh",
-                fontSize: "2em",
-                visibility:
-                  this.props.query === "desktop"
-                    ? this.state.aboutUsVisibility
-                    : "hidden"
-              } as React.CSSProperties
-            }
-          >
-            About Us
-          </h2>
-        ) : null}
-      </div>
-    );
-  }
-  render() {
-    let isLink = this.props.href ? true : false;
-    return this.renderTile();
-    /*return isLink ? (
-      <Link
-        style={{
-          ...TileContainer[this.props.query],
-          textDecoration: "none"
-        }}
-        to={this.props.href}
-        onMouseEnter={this.mouseEnterHoverBox.bind(this)}
-        onMouseLeave={this.mouseLeaveHoverBox.bind(this)}
-      >
-        {this.renderTile()}
-      </Link>
-    ) : (
-      this.renderTile()
-    );*/
-  }
-}
+                query === DeviceSizes.Desktop ? aboutUsVisibility : "hidden"
+            } as CSSProperties
+          }
+        >
+          About Us
+        </h2>
+      )}
+    </div>
+  );
+};
 
 export default Tile;

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="32px" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.1 (78136) - https://sketchapp.com -->
+    <title>icons/close</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Landing-Desktop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Landing-Popup-Opening" transform="translate(-912.000000, -241.000000)" fill="#65676A" fill-rule="nonzero">
+            <g id="Modal" transform="translate(480.000000, 225.000000)">
+                <g id="icons/close" transform="translate(432.000000, 16.000000)">
+                    <path d="M1.06318302,31.6439238 L31.6439238,1.06318302 C31.8391859,0.867920874 31.8391859,0.551338385 31.6439238,0.356076239 C31.4486616,0.160814093 31.1320791,0.160814093 30.936817,0.356076239 L0.356076239,30.936817 C0.160814093,31.1320791 0.160814093,31.4486616 0.356076239,31.6439238 C0.551338385,31.8391859 0.867920874,31.8391859 1.06318302,31.6439238 Z" id="Line"></path>
+                    <path d="M1.06318302,31.6439238 L31.6439238,1.06318302 C31.8391859,0.867920874 31.8391859,0.551338385 31.6439238,0.356076239 C31.4486616,0.160814093 31.1320791,0.160814093 30.936817,0.356076239 L0.356076239,30.936817 C0.160814093,31.1320791 0.160814093,31.4486616 0.356076239,31.6439238 C0.551338385,31.8391859 0.867920874,31.8391859 1.06318302,31.6439238 Z" id="Line" transform="translate(16.000000, 16.000000) scale(-1, 1) translate(-16.000000, -16.000000) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -35,3 +35,19 @@ functions:
           cors: true
           caching:
             enabled: true
+  webhook:
+    handler: handler.webhook
+    events:
+      - http:
+          path: /webhook
+          method: post
+          integration: lambda-proxy
+          cors: true
+  signup:
+    handler: handler.signup
+    events:
+      - http:
+          path: /signup
+          method: post
+          integration: lambda-proxy
+          cors: true

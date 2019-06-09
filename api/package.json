@@ -8,9 +8,13 @@
     "airtable": "^0.5.9",
     "aws-sdk": "^2.427.0",
     "bluebird": "^3.5.3",
+    "lodash": "^4.17.11",
+    "mailchimp-api-v3": "^1.13.0",
+    "moment-timezone": "^0.5.23",
     "serverless": "^1.39.1",
     "serverless-api-gateway-caching": "^1.3.8",
-    "serverless-offline": "^4.9.2"
+    "serverless-offline": "^4.9.2",
+    "square-connect": "^2.20190327.1"
   },
   "devDependencies": {
     "serverless-dotenv-plugin": "^2.0.1"

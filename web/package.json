@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "dev": "webpack-dev-server --mode development",
+    "dev": "webpack-dev-server --mode development & open http://localhost:8080",
     "deploy": "webpack --mode production",
     "test": ""
   },
@@ -20,11 +20,14 @@
     "@types/react-dom": "^16.8.3",
     "axios": "^0.18.0",
     "dotenv": "^7.0.0",
-    "react": "^16.8.5",
+    "polished": "^3.4.0",
+    "react": "^16.8.6",
     "react-dom": "^16.8.5",
     "react-hot-loader": "^4.8.0",
     "react-responsive": "^6.1.1",
     "react-router-dom": "^5.0.0",
+    "react-spring": "^8.0.23",
+    "use-timeout": "^1.0.0",
     "webpack-dev-server": "^3.2.1",
     "webpack-s3-plugin": "^1.0.3"
   }

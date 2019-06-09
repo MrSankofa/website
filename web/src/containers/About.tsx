@@ -1,13 +1,10 @@
 import * as React from "react";
+import { FunctionComponent } from "react";
 
-class About extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>About Us</h1>
-      </div>
-    );
-  }
-}
+const About: FunctionComponent = () => (
+  <div>
+    <h1>About Us</h1>
+  </div>
+);
 
 export default About;
