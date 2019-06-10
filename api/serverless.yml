@@ -18,8 +18,9 @@ provider:
         - logs:CreateLogStream
         - logs:PutLogEvents
       Resource: "*"
-  
+
 plugins:
+  - serverless-plugin-typescript
   - serverless-offline
   - serverless-dotenv-plugin
   - serverless-api-gateway-caching
