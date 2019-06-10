@@ -12,6 +12,7 @@ import axios from "axios";
 
 import { API_ROOT, DeviceSizes, Colors } from "../constants";
 import { Modal, ModalProps } from "./Modal";
+import FormError from "./FormError";
 import Typography from "../styles/Typography";
 import * as Input from "../styles/Input";
 import * as Button from "../styles/Button";
@@ -26,6 +27,7 @@ const EmailSignupModal: FunctionComponent<ModalProps> = props => {
   const [buttonColor, setButtonColor] = useState(Colors.blue);
   const [subscribed, setSubscribed] = useState(false);
   const [inputValid, setInputValid] = useState(false);
+  const [formErrorMessage, setFormErrorMessage] = useState("");
 
   const keydown = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
@@ -34,7 +36,8 @@ const EmailSignupModal: FunctionComponent<ModalProps> = props => {
   };
 
   const submit = () => {
-    if (nameInput.current.value && emailInput.current.value) {
+    validate();
+    if (inputValid && nameInput.current.value && emailInput.current.value) {
       setButtonColor(Colors.blue3);
       axios
         .post(`${API_ROOT}/signup`, {
@@ -44,22 +47,30 @@ const EmailSignupModal: FunctionComponent<ModalProps> = props => {
         .then(() => {
           setButtonColor(Colors.blue);
           setSubscribed(true);
+        })
+        .catch(() => {
+          setFormErrorMessage("Sorry, an error occurred.");
+          setInputValid(false);
         });
     }
   };
 
-  useEffect(() => {
-    if (
-      /[A-Z][a-zA-Z][^#&<>\"~;$^%{}?]{1,20}$/.test(nameInput.current.value) &&
-      /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(
-        emailInput.current.value
-      )
-    ) {
+  const validate = () => {
+    const nameValid = !!nameInput.current.value.length;
+    const emailValid = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/.test(
+      emailInput.current.value
+    );
+    if (nameValid && emailValid) {
       setInputValid(true);
     } else {
+      if (!emailValid)
+        setFormErrorMessage("Please enter a valid email address.");
+      if (!nameValid) setFormErrorMessage("Please enter a name.");
       setInputValid(false);
     }
-  }, [nameInputFocused, emailInputFocused]);
+  };
+
+  useEffect(validate, [nameInputFocused, emailInputFocused]);
 
   useEffect(() => {
     if (nameInput.current) {
@@ -211,10 +222,12 @@ const EmailSignupModal: FunctionComponent<ModalProps> = props => {
           }}
         />
       )}
+      {!inputValid && !nameInputFocused && !emailInputFocused && (
+        <FormError query={props.query} message={formErrorMessage} />
+      )}
       {!subscribed && (
         <button
           type="submit"
-          disabled={!inputValid}
           onClick={submit}
           ref={button}
           onFocus={() => setButtonFocused(true)}
