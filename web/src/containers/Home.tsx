@@ -3,11 +3,10 @@ import { useEffect, useState, FunctionComponent, CSSProperties } from "react";
 import { transparentize } from "polished";
 import MediaQuery from "react-responsive";
 import axios from "axios";
+import { useAsyncEffect } from "use-async-effect";
 
-import Tile from "../components/Tile";
-import Loading from "../components/Loading";
-import EmailSignupModal from "../components/EmailSignupModal";
-import * as style from "../styles/Home";
+import { Tile, Loading, EmailSignupModal } from "../components";
+import { Home as style } from "../styles";
 import { API_ROOT, DeviceSizes, Colors } from "../constants";
 
 const Home: FunctionComponent = () => {
@@ -15,12 +14,12 @@ const Home: FunctionComponent = () => {
   const [tiles, setTiles] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
 
-  useEffect(() => {
-    if (!tiles.length)
-      axios.get(`${API_ROOT}/layout`).then(({ data }) => {
-        setLoading(false);
-        setTiles(data);
-      });
+  useAsyncEffect(async () => {
+    if (!tiles.length) {
+      const { data } = await axios.get(`${API_ROOT}/layout`);
+      setLoading(false);
+      setTiles(data);
+    }
   });
 
   const renderContainer = (breakpoint: DeviceSizes) => (

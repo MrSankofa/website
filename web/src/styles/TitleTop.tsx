@@ -1,11 +1,11 @@
-export const desktop = {
-  paddingTop: "15vh"
-};
-
-export const tablet = {
-  paddingTop: "7vh"
-};
-
-export const mobile = {
-  paddingTop: "12vh"
+export const TitleTop = {
+  desktop: {
+    paddingTop: "15vh"
+  },
+  tablet: {
+    paddingTop: "7vh"
+  },
+  mobile: {
+    paddingTop: "12vh"
+  }
 };

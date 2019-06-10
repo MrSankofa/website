@@ -27,6 +27,7 @@
     "react-responsive": "^6.1.1",
     "react-router-dom": "^5.0.0",
     "react-spring": "^8.0.23",
+    "use-async-effect": "^2.0.1",
     "use-timeout": "^1.0.0",
     "webpack-dev-server": "^3.2.1",
     "webpack-s3-plugin": "^1.0.3"

@@ -5,19 +5,15 @@ import {
   useRef,
   FunctionComponent,
   CSSProperties,
-  KeyboardEvent,
-  MouseEvent
+  KeyboardEvent
 } from "react";
 import axios from "axios";
 
-import { API_ROOT, DeviceSizes, Colors } from "../constants";
-import { Modal, ModalProps } from "./Modal";
-import FormError from "./FormError";
-import Typography from "../styles/Typography";
-import * as Input from "../styles/Input";
-import * as Button from "../styles/Button";
+import { API_ROOT, Colors } from "../constants";
+import { Modal, ModalProps, FormError } from "./";
+import { Typography, Input, Button } from "../styles";
 
-const EmailSignupModal: FunctionComponent<ModalProps> = props => {
+export const EmailSignupModal: FunctionComponent<ModalProps> = props => {
   const nameInput = useRef(null);
   const emailInput = useRef(null);
   const button = useRef(null);
@@ -35,23 +31,21 @@ const EmailSignupModal: FunctionComponent<ModalProps> = props => {
     }
   };
 
-  const submit = () => {
-    validate();
-    if (inputValid && nameInput.current.value && emailInput.current.value) {
-      setButtonColor(Colors.blue3);
-      axios
-        .post(`${API_ROOT}/signup`, {
+  const submit = async () => {
+    try {
+      validate();
+      if (inputValid && nameInput.current.value && emailInput.current.value) {
+        setButtonColor(Colors.blue3);
+        await axios.post(`${API_ROOT}/signup`, {
           name: nameInput.current.value,
           email: emailInput.current.value
-        })
-        .then(() => {
-          setButtonColor(Colors.blue);
-          setSubscribed(true);
-        })
-        .catch(() => {
-          setFormErrorMessage("Sorry, an error occurred.");
-          setInputValid(false);
         });
+        setButtonColor(Colors.blue);
+        setSubscribed(true);
+      }
+    } catch (err) {
+      setFormErrorMessage("Sorry, an error occurred.");
+      setInputValid(false);
     }
   };
 
@@ -251,5 +245,3 @@ const EmailSignupModal: FunctionComponent<ModalProps> = props => {
     </Modal>
   );
 };
-
-export default EmailSignupModal;

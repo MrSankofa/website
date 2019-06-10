@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FunctionComponent } from "react";
 
-const Loading: FunctionComponent = () => (
+export const Loading: FunctionComponent = () => (
   <div
     style={{
       width: "100vw",
@@ -27,5 +27,3 @@ const Loading: FunctionComponent = () => (
     />
   </div>
 );
-
-export default Loading;

@@ -2,14 +2,16 @@ import * as React from "react";
 import { useState, FunctionComponent, CSSProperties } from "react";
 //import { Link } from "react-router-dom";
 
-import * as TileContainer from "../styles/Tile";
-import * as TitleTop from "../styles/TitleTop";
-import * as TitleBottom from "../styles/TitleBottom";
-import * as HoverContentBox from "../styles/HoverContentBox";
-import Typography from "../styles/Typography";
+import {
+  Tile as style,
+  TitleTop,
+  TitleBottom,
+  HoverContentBox,
+  Typography
+} from "../styles";
 import { DeviceSizes, Colors } from "../constants";
 
-type TileProps = {
+export type TileProps = {
   query: DeviceSizes;
   name: string;
   hover_content: any;
@@ -18,7 +20,7 @@ type TileProps = {
   openModal?: () => void;
 };
 
-const Tile: FunctionComponent<TileProps> = ({
+export const Tile: FunctionComponent<TileProps> = ({
   query,
   name,
   hover_content,
@@ -47,7 +49,7 @@ const Tile: FunctionComponent<TileProps> = ({
   /*return isLink ? (
       <Link
         style={{
-          ...TileContainer[query],
+          ...style[query],
           textDecoration: "none"
         }}
         to={href}
@@ -62,7 +64,7 @@ const Tile: FunctionComponent<TileProps> = ({
     <div
       style={
         {
-          ...TileContainer[query],
+          ...style[query],
           background: `url('${background_img}')`,
           backgroundRepeat: "no-repeat",
           backgroundSize: "cover",
@@ -166,5 +168,3 @@ const Tile: FunctionComponent<TileProps> = ({
     </div>
   );
 };
-
-export default Tile;

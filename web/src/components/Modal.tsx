@@ -9,10 +9,7 @@ import {
 import { useSpring, animated } from "react-spring";
 import useTimeout from "use-timeout";
 
-import Typography from "../styles/Typography";
-import * as ModalOverlay from "../styles/ModalOverlay";
-import * as ModalBody from "../styles/ModalBody";
-import * as Button from "../styles/Button";
+import { Typography, ModalOverlay, ModalBody, Button } from "../styles";
 import { DeviceSizes, Colors } from "../constants";
 
 export type ModalProps = {

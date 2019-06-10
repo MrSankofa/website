@@ -1,7 +1,7 @@
 import * as React from "react";
 import { FunctionComponent } from "react";
 
-import Typography from "../styles/Typography";
+import { Typography } from "../styles";
 import { DeviceSizes } from "../constants";
 
 type FormErrorProps = {
@@ -9,8 +9,9 @@ type FormErrorProps = {
   message: string;
 };
 
-const FormError: FunctionComponent<FormErrorProps> = ({ message, query }) => {
+export const FormError: FunctionComponent<FormErrorProps> = ({
+  message,
+  query
+}) => {
   return <p style={{ color: "red", ...Typography[query].p }}>{message}</p>;
 };
-
-export default FormError;

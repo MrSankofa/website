@@ -1,4 +1,4 @@
-const Typography = {
+export const Typography = {
   desktop: {
     p: {
       fontFamily: "Fira Sans Book, sans-serif",
@@ -108,5 +108,3 @@ const Typography = {
     }
   }
 };
-
-export default Typography;
