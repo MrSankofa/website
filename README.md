@@ -1,15 +1,16 @@
 # onesundayatatime.com
+
 The main website and backend for [One Sunday At A Time](https://www.onesundayatatime.com)
 
 Built with a 100% serverless architecture.
 
-Uses [Airtable](https://airtable.com) as a database, with the benefit of Airtable's UX being a built-in CMS. 
+Uses [Airtable](https://airtable.com) as a database, with the benefit of Airtable's UX being a built-in CMS.
 
 Uses [Square](https://squareup.com) for handling transactions via a webhook and updating Airtable based on purchase totals. Because automated accounting is dope.
 
 Uses [Mailchimp](https://mailchimp.com) for handling newsletter signups.
 
-Lambda proxy caching ensures you don't run afoul of Airtable's API rate limits. 
+Lambda proxy caching ensures you don't run afoul of Airtable's API rate limits.
 
 Front-end is hosted statically in S3, with a Cloudfront distribution serving up the goods from Edge locations.
 
@@ -22,8 +23,7 @@ This repo has the following structure:
 |
 |- api/                   # Contains the Serverless API
 |   |
-|   |- handler.js         # Entrypoint for API code, also main routing system for API requests
-|   |- layout.js          # Layout endpoints/function code
+|   |- handler.ts         # Entrypoint for API code, also main routing system for API requests
 |   |- serverless.yml     # Serverless configuration
 |   |- methods/           # Business logic/controllers
 |   |- services/          # Wrappers for third-party libraries
@@ -45,9 +45,10 @@ This repo has the following structure:
 
 ## Dependencies 📝
 
-Two .env files are required - one in /api and one in /web. 
+Two .env files are required - one in /api and one in /web.
 
 api/.env
+
 ```
 AIRTABLE_KEY=xxxxxxxxxxxxxxxxxx
 WEBSITE_BASE_ID=xxxxxxxxxxxxxxxxxx
@@ -62,6 +63,7 @@ MAILCHIMP_LIST_ID=xxxxxxxxx
 ```
 
 web/.env
+
 ```
 AWS_ACCESS_KEY_ID=xxxxxxxxxxxxxxxxxx
 AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
@@ -80,12 +82,12 @@ in order to deploy using Serverless. This assumes your AWS keys have broad-enoug
 
 ## Set up 🚀
 
-Once your .envs are created, it's time to turn on the engine. 
+Once your .envs are created, it's time to turn on the engine.
 
 To run the front-end:
 
 ```
-cd website/web && yarn 
+cd website/web && yarn
 yarn dev
 ```
 
@@ -98,4 +100,3 @@ From within either api/ or web/:
 ```
 yarn deploy
 ```
-
