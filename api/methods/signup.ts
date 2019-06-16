@@ -4,6 +4,7 @@ import {
   APIGatewayProxyCallback
 } from "aws-lambda";
 import { subscribe } from "../services";
+import { MailchimpSubscribeParams } from "../types";
 
 export const subscribeUser = async (
   event: APIGatewayEvent,
@@ -14,7 +15,10 @@ export const subscribeUser = async (
     const { name, email } =
       typeof event.body === "string" ? JSON.parse(event.body) : event.body;
 
-    const result = await subscribe({ name, email_address: email });
+    const result = await subscribe({
+      name,
+      email_address: email
+    } as MailchimpSubscribeParams);
     console.log(result);
     callback(null, {
       statusCode: 200,
