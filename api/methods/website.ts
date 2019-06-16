@@ -1,16 +1,25 @@
 import { map } from "bluebird";
 import { website } from "../services";
 import { SelectOptions, Row } from "airtable";
+import {
+  APIGatewayEvent,
+  APIGatewayEventRequestContext,
+  APIGatewayProxyCallback
+} from "aws-lambda";
 
-export const getLayout = async (event, context, callback) => {
+export const getLayout = async (
+  event: APIGatewayEvent,
+  context: APIGatewayEventRequestContext,
+  callback: APIGatewayProxyCallback
+) => {
   try {
-    let currentHomePage: Row = (await website("Home")
+    let currentHomePage: Row<{}> = (await website("Home")
       .select({
         maxRecords: 1,
         filterByFormula: "IS_AFTER(NOW(), {Start})"
       } as SelectOptions)
       .firstPage())[0];
-    let currentLayout: Row[] = [
+    let currentLayout: string[] = [
       currentHomePage.get("Tile 1"),
       currentHomePage.get("Tile 2"),
       currentHomePage.get("Tile 3"),

@@ -1,6 +1,15 @@
+import {
+  APIGatewayEvent,
+  APIGatewayEventRequestContext,
+  APIGatewayProxyCallback
+} from "aws-lambda";
 import { subscribe } from "../services";
 
-export const subscribeUser = async (event, context, callback) => {
+export const subscribeUser = async (
+  event: APIGatewayEvent,
+  context: APIGatewayEventRequestContext,
+  callback: APIGatewayProxyCallback
+) => {
   try {
     const { name, email } =
       typeof event.body === "string" ? JSON.parse(event.body) : event.body;

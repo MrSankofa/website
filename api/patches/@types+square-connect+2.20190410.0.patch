@@ -1,0 +1,23 @@
+diff --git a/node_modules/@types/square-connect/index.d.ts b/node_modules/@types/square-connect/index.d.ts
+index f36d105..b292b3a 100644
+--- a/node_modules/@types/square-connect/index.d.ts
++++ b/node_modules/@types/square-connect/index.d.ts
+@@ -10,6 +10,10 @@
+  * @link https://github.com/swagger-api/swagger-codegen.git
+  */
+ 
++ export class ApiClient {
++
++ }
++
+ /**
+  * Represents an additional recipient (other than the merchant) receiving a portion of this tender.
+  */
+@@ -9245,4 +9249,6 @@ export class TransactionsApi {}
+ export class V1EmployeesApi {}
+ export class V1ItemsApi {}
+ export class V1LocationsApi {}
+-export class V1TransactionsApi {}
++export class V1TransactionsApi {
++    retrievePayment(location_id: string, entity_id: string): Promise<V1Payment>;
++}

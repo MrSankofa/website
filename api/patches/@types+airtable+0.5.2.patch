@@ -1,0 +1,20 @@
+diff --git a/node_modules/@types/airtable/index.d.ts b/node_modules/@types/airtable/index.d.ts
+index ba94342..cd68b24 100644
+--- a/node_modules/@types/airtable/index.d.ts
++++ b/node_modules/@types/airtable/index.d.ts
+@@ -33,6 +33,7 @@ declare global {
+ 
+         interface Table<TFields extends FieldSet> {
+             select(opt?: SelectOptions): Query<TFields>;
++            find(id: string): { _rawJson: object };
+         }
+ 
+         interface SelectOptions {
+@@ -49,6 +50,7 @@ declare global {
+         interface Row<TFields> {
+             id: string;
+             fields: TFields;
++            get: Function;
+         }
+ 
+         interface Attachment {
