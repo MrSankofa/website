@@ -4,6 +4,7 @@ import { transparentize } from "polished";
 import MediaQuery from "react-responsive";
 import axios from "axios";
 import { useAsyncEffect } from "use-async-effect";
+import useTimeout from "use-timeout";
 
 import { Tile, Loading, EmailSignupModal } from "../components";
 import { Home as style } from "../styles";
@@ -55,6 +56,10 @@ const Home: FunctionComponent = () => {
       ))}
     </div>
   );
+
+  useTimeout(() => {
+    if (!modalVisible) setModalVisible(true);
+  }, 2000);
 
   return loading ? (
     <Loading />

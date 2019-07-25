@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Route, Switch } from "react-router-dom";
 import Home from "./containers/Home";
-import About from "./containers/About";
+import Opening from "./containers/Opening";
 
 export default () => (
   <Switch>
     <Route path="/" exact component={Home} />
-    <Route path="/about" exact component={About} />
+    <Route path="/opening" exact component={Opening} />
   </Switch>
 );

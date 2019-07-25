@@ -8,3 +8,5 @@ export * from "./Tile";
 export * from "./TitleBottom";
 export * from "./TitleTop";
 export * from "./Typography";
+export * from "./Logo";
+export * from "./SocialIcon";

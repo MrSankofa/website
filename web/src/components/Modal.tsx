@@ -6,8 +6,12 @@ import {
   FunctionComponent,
   CSSProperties
 } from "react";
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks
+} from "body-scroll-lock";
 import { useSpring, animated } from "react-spring";
-import useTimeout from "use-timeout";
 
 import { Typography, ModalOverlay, ModalBody, Button } from "../styles";
 import { DeviceSizes, Colors } from "../constants";
@@ -33,6 +37,7 @@ export const Modal: FunctionComponent<ModalProps> = ({
   const [zIndex, setZIndex] = useState(-1);
   const [buttonFocused, setButtonFocused] = useState(false);
   const [buttonColor, setButtonColor] = useState(Colors.blue);
+  const modal = document.querySelector("#modal");
 
   useEffect(() => {
     setIsVisible(visible);
@@ -41,9 +46,11 @@ export const Modal: FunctionComponent<ModalProps> = ({
   useEffect(() => {
     if (isVisible) {
       setZIndex(2);
+      disableBodyScroll(modal);
     } else {
       setTimeout(() => setZIndex(-1), 300);
     }
+    return clearAllBodyScrollLocks();
   }, [isVisible]);
 
   useEffect(() => {
@@ -58,19 +65,17 @@ export const Modal: FunctionComponent<ModalProps> = ({
     }
   }, [buttonFocused]);
 
-  useTimeout(() => {
-    if (!isVisible) setIsVisible(true);
-  }, 2000);
-
   const fade = useSpring({ opacity: isVisible ? 1 : 0 });
 
   const clickClose = () => {
     setIsVisible(false);
     if (onClickClose) onClickClose();
+    enableBodyScroll(modal);
   };
 
   return (
     <animated.div
+      id="modal"
       style={
         {
           ...ModalOverlay[query],

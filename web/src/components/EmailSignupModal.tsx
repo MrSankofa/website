@@ -8,6 +8,7 @@ import {
   KeyboardEvent
 } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 import { API_ROOT, Colors } from "../constants";
 import { Modal, ModalProps, FormError } from "./";
@@ -114,7 +115,7 @@ export const EmailSignupModal: FunctionComponent<ModalProps> = props => {
     >
       <img
         style={{ flex: 1, marginTop: 24, maxHeight: 41 }}
-        src={"/assets/images/storefront.svg"}
+        src={"/assets/images/pattern-curves.svg"}
       />
       <h2
         style={
@@ -126,21 +127,42 @@ export const EmailSignupModal: FunctionComponent<ModalProps> = props => {
           } as CSSProperties
         }
       >
-        {subscribed ? "Thanks much!" : "We're Opening Soon!"}
+        {subscribed ? "Thanks much!" : "See u soon"}
       </h2>
-      <p
-        style={{
-          flex: 1,
-          maxHeight: 56,
-          padding: "8px 40px 0 40px",
-          ...Typography[props.query].label,
-          color: Colors.black
-        }}
-      >
-        {subscribed
-          ? "You're now part of the One Sunday family. Stay tuned!"
-          : "Sign up to be the first to hear about our launch event & get exclusive deals."}
-      </p>
+
+      {subscribed ? (
+        <p
+          style={{
+            flex: 1,
+            maxHeight: 56,
+            padding: "8px 40px 12px 40px",
+            ...Typography[props.query].label,
+            color: Colors.black
+          }}
+        >
+          You're now part of the One Sunday family. Stay tuned!
+        </p>
+      ) : (
+        <p
+          style={{
+            flex: 1,
+            maxHeight: 56,
+            padding: "8px 40px 12px 40px",
+            ...Typography[props.query].label,
+            color: Colors.black
+          }}
+        >
+          Sign up for our newsletter for monthly style, tips, & the latest.
+          We're{" "}
+          <Link
+            to="/opening"
+            style={{ color: Colors.blue, textDecoration: "none" }}
+          >
+            opening our doors
+          </Link>{" "}
+          on July 28th, join us. ✨
+        </p>
+      )}
       {!subscribed && (
         <label
           htmlFor={"name"}
@@ -167,8 +189,8 @@ export const EmailSignupModal: FunctionComponent<ModalProps> = props => {
           placeholder={"Name"}
           style={{
             flex: 1,
-            padding: "0 40px",
-            width: "calc(100% - 160px)",
+            padding: "0 16px",
+            width: "calc(100% - 120px)",
             marginTop: 8,
             marginBottom: 16,
             border: `1px solid ${
@@ -204,8 +226,8 @@ export const EmailSignupModal: FunctionComponent<ModalProps> = props => {
           placeholder={"Email"}
           style={{
             flex: 1,
-            padding: "0 40px",
-            width: "calc(100% - 160px)",
+            padding: "0 16px",
+            width: "calc(100% - 120px)",
             marginTop: 8,
             marginBottom: 16,
             border: `1px solid ${

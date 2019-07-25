@@ -1,13 +1,13 @@
 import * as React from "react";
 import { useState, FunctionComponent, CSSProperties } from "react";
-//import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import {
   Tile as style,
-  TitleTop,
-  TitleBottom,
+  Logo,
   HoverContentBox,
-  Typography
+  Typography,
+  SocialIcon
 } from "../styles";
 import { DeviceSizes, Colors } from "../constants";
 
@@ -60,6 +60,10 @@ export const Tile: FunctionComponent<TileProps> = ({
       </Link>
     ) : ...;*/
 
+  const onTileClick = () => {
+    if (isNewsletterTile) openModal();
+  };
+
   return (
     <div
       style={
@@ -74,41 +78,68 @@ export const Tile: FunctionComponent<TileProps> = ({
           cursor: isNewsletterTile ? "pointer" : "inherit"
         } as CSSProperties
       }
-      onClick={isNewsletterTile ? openModal : null}
+      onClick={onTileClick}
       onMouseEnter={mouseEnterHoverBox}
       onMouseLeave={mouseLeaveHoverBox}
     >
       {isHomeTile && (
-        <h1
+        <img
+          src="/assets/images/sunday-logo.svg"
+          alt="One Sunday At A Time"
           style={{
-            ...Typography[query].h1,
-            ...TitleTop[query]
+            ...Logo[query]
           }}
-        >
-          one sunday
-        </h1>
+        />
       )}
       {isHomeTile && (
-        <h1
+        <a
+          href="https://g.page/one-sunday-at-a-time?share"
+          target="_blank"
           style={{
-            ...Typography[query].h1,
-            ...TitleBottom[query]
-          }}
-        >
-          at a time
-        </h1>
-      )}
-      {isHomeTile && (
-        <p
-          style={{
-            ...Typography[query].label,
-            textAlign: "center",
-            color: Colors.black,
+            flex: 1,
+            textDecoration: "none",
+            color: Colors.blue,
+            display: "inherit",
             marginTop: "20%"
           }}
         >
-          brooklyn
-        </p>
+          <p
+            style={{
+              ...Typography[query].label,
+              textAlign: "center"
+            }}
+          >
+            📍253 Wilson Ave, Bushwick
+          </p>
+        </a>
+      )}
+      {isHomeTile && (
+        <div
+          style={{
+            width: "100%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          }}
+        >
+          <a
+            href="https://instagram.com/shoponesunday"
+            target="_blank"
+            style={{
+              flex: 1,
+              maxWidth: 15,
+              display: "inherit"
+            }}
+          >
+            <img
+              src="/assets/images/instagram.png"
+              alt="Instagram: @shoponesunday"
+              style={{
+                ...SocialIcon[query]
+              }}
+            />
+          </a>
+        </div>
       )}
       {isNewsletterTile && (
         <h2
@@ -137,15 +168,17 @@ export const Tile: FunctionComponent<TileProps> = ({
             } as CSSProperties
           }
         >
-          <p
-            style={{
-              ...Typography[query].label,
-              textAlign: "left",
-              color: Colors.black
-            }}
-          >
-            {hover_content}
-          </p>
+          <Link to="/opening" style={{ textDecoration: "none" }}>
+            <p
+              style={{
+                ...Typography[query].label,
+                textAlign: "left",
+                color: Colors.black
+              }}
+            >
+              {hover_content}
+            </p>
+          </Link>
         </div>
       )}
       {hasHoverContent && (
